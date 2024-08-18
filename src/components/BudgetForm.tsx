@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react"
-
+ import { UseBudget } from "../hooks/useBudget"
 const BudgetForm = () => {
-
+  const {dispatch} = UseBudget()
   const [budget,setBudget] = useState(0)
 
   const handleChange = (e:React.ChangeEvent<HTMLInputElement>) =>{
@@ -10,6 +10,7 @@ const BudgetForm = () => {
 
   const handleSubmit = (e:React.FormEvent<HTMLFormElement>) =>{
     e.preventDefault();
+    dispatch({type:'add-budget',payload:{budget}})
   }
 
 
