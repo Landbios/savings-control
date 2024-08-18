@@ -1,8 +1,11 @@
+
 import BudgetForm from "./components/BudgetForm"
+import { UseBudget } from "./hooks/useBudget"
 
 
 function App() {
-
+  const {state,dispatch} = UseBudget()
+  console.log(state)
 
   return (
     <>

@@ -8,11 +8,15 @@ const BudgetForm = () => {
     setBudget(e.target.valueAsNumber)
   }
 
+  const handleSubmit = (e:React.FormEvent<HTMLFormElement>) =>{
+    e.preventDefault();
+  }
+
 
   //Validacion de presupuesto con useMemo
   const isValid = useMemo(() => {return isNaN(budget) || budget ==0},[budget])
   return (
-    <form action="" className="space-y-5">
+    <form action="" onSubmit={(e) => handleSubmit(e)} className="space-y-5">
 
       <div className="flex flex-col space-y-5">
         <label htmlFor="budget" className="text-4xl text-blue-600 font-bold text-center"></label>
