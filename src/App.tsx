@@ -4,6 +4,7 @@ import { useMemo } from "react"
 import { UseBudget } from "./hooks/useBudget"
 import BudgetTracker from "./components/BudgetTracker"
 import ExpenseModal from "./components/ExpensesModal"
+import ExpenseList from "./components/ExpenseList"
 
 
 function App() {
@@ -22,7 +23,11 @@ function App() {
      </div>
 
      {isValidBudget && (
-      <main className="max-w-3xl mx-auto p-10"><ExpenseModal/></main>
+      <main className="max-w-3xl mx-auto p-10">
+        <ExpenseList/>
+        <ExpenseModal/>
+        
+        </main>
       
      )}
      
