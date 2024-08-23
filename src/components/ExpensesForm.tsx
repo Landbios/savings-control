@@ -14,13 +14,15 @@ const ExpensesForm = () => {
     const [expense,setExpense] = useState<DraftExpense>({amount:0, expenseName:'', category:'', date: new Date})
 
     const [error, setError] = useState('')
+    const [prevAmount, setPrev] = useState(0)
 
-    const {dispatch,state} = UseBudget()
+    const {dispatch,state,remainingBudget} = UseBudget()
 
     useEffect(() =>{
         if(state.editingId) {
             const editingExpense = state.expenses.filter(expense => expense.id ==  state.editingId)[0]
             setExpense(editingExpense)
+            setPrev(editingExpense.amount)
         }
 
 
@@ -35,8 +37,12 @@ const ExpensesForm = () => {
         //validate
 
         if(Object.values(expense).includes('')){
-            setError('todos los campos son obligatorios')
+            setError('All fields are mandatory')
             return
+        }
+        if((expense.amount - prevAmount) > remainingBudget){
+            setError('This expense is out of your budget.')
+            
         }
         else{
 
@@ -46,6 +52,7 @@ const ExpensesForm = () => {
             else{
                 dispatch({type:'add-expense', payload:{expense}})
                 setExpense({amount:0, expenseName:'', category:'', date: new Date})
+                setPrev(0)
 
             }
          

@@ -11,6 +11,7 @@ const BudgetForm = () => {
   const handleSubmit = (e:React.FormEvent<HTMLFormElement>) =>{
     e.preventDefault();
     dispatch({type:'add-budget',payload:{budget}})
+    localStorage.setItem('budget', JSON.stringify(budget))
   }
 
 
