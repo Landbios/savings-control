@@ -77,7 +77,7 @@ const ExpensesForm = () => {
             <select onChange={(e) => {setExpense({...expense,category:e.target.value})} } value={expense.category} id='expenseCategory' className='bg-slate-100 p-2' name='expenseCategory' >
             <option value=" ">--Select Category--</option>
             {categories.map((category) => {
-                return(<option value={category.name} id={category.id} >{category.name}</option>)
+                return(<option value={category.id} id={category.id} >{category.name}</option>)
             })}
             
             </select>

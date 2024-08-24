@@ -1,4 +1,4 @@
-import { DraftExpense, Expense } from "../types"
+import { Category, DraftExpense, Expense } from "../types"
 import {v4 as uuidv4} from 'uuid'
 
 export type BudgetActions =
@@ -9,7 +9,9 @@ export type BudgetActions =
     {type: 'remove-expense', payload:{id:Expense['id']}} |
     {type: 'get-expense-by-id', payload:{id:Expense['id']}} |
     {type: 'update-expense', payload:{expense:Expense}} |
-    {type: 'load-expenses', payload:{expenses:Expense[]}}
+    {type: 'load-expenses', payload:{expenses:Expense[]}} |
+    {type: 'reset-app'} |
+    {type: 'filter-category', payload:{id:Category['id']}}
 
 
 
@@ -17,20 +19,24 @@ export type BudgetState = {
     budget:number
     modal:boolean
     expenses:Expense[]
-    editingId:Expense['id']
+    editingId:Expense['id'],
+    currentCategory:Category['id']
 }
 
 const initialBudget = () => {
-    if(localStorage.getItem('budget')){
-        let localBudget = JSON.parse(localStorage.getItem('budget') || "")
-    return localBudget}
+   
+        let localBudget = localStorage.getItem('budget') 
+    return localBudget ? +localBudget:0
 }
+
+
 
 export const initialState: BudgetState = {
     budget:initialBudget(),
     modal:false,
     expenses:[],
-    editingId:''
+    editingId:'',
+    currentCategory:''
     
 }
 
@@ -73,7 +79,16 @@ export const BudgetReducer = (state:BudgetState = initialState,action:BudgetActi
     if(action.type == 'load-expenses'){
         return{...state,expenses:action.payload.expenses}
     }
+
+    if(action.type == 'reset-app'){
+        localStorage.removeItem('budget');
+        localStorage.removeItem('expenses');
+        return{...state,expenses:[],budget:0,editingId:''}
+    }
     
+    if(action.type == 'filter-category'){
+        return{...state, currentCategory:action.payload.id}
+    }
     return state
 
 }

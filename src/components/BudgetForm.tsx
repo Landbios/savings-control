@@ -12,6 +12,7 @@ const BudgetForm = () => {
     e.preventDefault();
     dispatch({type:'add-budget',payload:{budget}})
     localStorage.setItem('budget', JSON.stringify(budget))
+    localStorage.setItem('expenses',JSON.stringify([]))
   }
 
 

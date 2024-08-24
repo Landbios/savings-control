@@ -12,7 +12,7 @@ type ExpenseDetailProps = {
 
 export default function ExpenseDetail({ expense }: ExpenseDetailProps) {
   const {dispatch} = UseBudget();
-  const categoryInfor = useMemo(() => categories.filter((cate) => cate.name === expense.category)[0], [expense])
+  const categoryInfor = useMemo(() => categories.filter((cate) => cate.id === expense.category)[0], [expense])
 
   const leadingActions = () =>(
     <LeadingActions>
@@ -36,7 +36,7 @@ export default function ExpenseDetail({ expense }: ExpenseDetailProps) {
   return (
     <SwipeableList>
       <SwipeableListItem maxSwipe={30} leadingActions={leadingActions()} trailingActions={trailingActions()} >
-        <div className='bg-white shadow-lg my-2 border-gray-200 rounded-md p-10 w-full border-10 flex gap-5 items-center'>
+        <div className='bg-white shadow-lg my-2 border-gray-200 rounded-lg p-10 w-full border-10 flex gap-5 items-center'>
           <div>
             <img src={`/icono_${categoryInfor.icon}.svg`} alt='expense icon ' className='w-20' />
 
